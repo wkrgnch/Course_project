@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="Course_Project:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="929c43e9-d87b-4684-8d9e-42ebe1daac23" name="Changes" comment="added access for admin table assignment">
+    <list default="true" id="929c43e9-d87b-4684-8d9e-42ebe1daac23" name="Changes" comment="final changes">
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/Course_Project_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/course_project/RegistrationView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/course_project/RegistrationView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +80,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "project.structure.last.edited": "Libraries",
+    "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2"
   }
@@ -172,7 +179,23 @@
       <option name="project" value="LOCAL" />
       <updated>1751044526099</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="different registration for admin and teacher">
+      <option name="closed" value="true" />
+      <created>1751046389100</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1751046389100</updated>
+    </task>
+    <task id="LOCAL-00012" summary="final changes">
+      <option name="closed" value="true" />
+      <created>1751047917377</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1751047917377</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -186,6 +209,8 @@
     <MESSAGE value="added password change" />
     <MESSAGE value="added access for admin table lessons" />
     <MESSAGE value="added access for admin table assignment" />
-    <option name="LAST_COMMIT_MESSAGE" value="added access for admin table assignment" />
+    <MESSAGE value="different registration for admin and teacher" />
+    <MESSAGE value="final changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="final changes" />
   </component>
 </project>
