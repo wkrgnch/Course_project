@@ -11,12 +11,17 @@ public class Database {
     private final String USER = "admin";
     private final String PASS = "qwerty";
     private Database() throws SQLException {
-        try { Class.forName("com.mysql.cj.jdbc.Driver"); }
-        catch(ClassNotFoundException e) { throw new SQLException(e); }
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        }
+        catch(ClassNotFoundException e) {
+            throw new SQLException(e);
+        }
         conn = DriverManager.getConnection(URL, USER, PASS);
     }
     public static Connection getConnection() throws SQLException {
-        if (instance==null || instance.conn.isClosed()) instance = new Database();
+        if (instance==null || instance.conn.isClosed())
+            instance = new Database();
         return instance.conn;
     }
 }
