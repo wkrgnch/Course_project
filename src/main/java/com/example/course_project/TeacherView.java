@@ -2,11 +2,17 @@ package com.example.course_project;
 
 
 import javafx.application.Application;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Callback;
+
 import java.sql.*;
 
 public class TeacherView extends Application {
@@ -84,18 +90,21 @@ public class TeacherView extends Application {
         TextField courseNameField = new TextField();
         courseNameField.setPromptText("Название курса");
 
+        TextField hoursField = new TextField();
+        hoursField.setPromptText("Количество часов");
+
         Button addBtn = new Button("Добавить");
         addBtn.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white;");
-        addBtn.setOnAction(new AddTeacherCourseHandler(courseNameField, dialog));
+        addBtn.setOnAction(new AddTeacherCourseHandler(courseNameField, hoursField, dialog));
 
-        dialogVBox.getChildren().addAll(new Label("Новый курс:"), courseNameField, addBtn);
-        Scene dialogScene = new Scene(dialogVBox, 300, 150);
+        dialogVBox.getChildren().addAll(new Label("Новый курс:"), courseNameField, hoursField, addBtn);
+        Scene dialogScene = new Scene(dialogVBox, 300, 200);
         dialog.setScene(dialogScene);
         dialog.setTitle("Добавление курса");
         dialog.show();
     }
 
-    // Data-класс для отображения
+
     public static class TeacherCourseInfo {
         private String courseName;
         private int groupNumber;
@@ -115,55 +124,74 @@ public class TeacherView extends Application {
         public String getDirection() { return direction; }
     }
 
-    // CellFactories без лямбд
-    private class CourseNameCellFactory implements javafx.util.Callback<TableColumn.CellDataFeatures<TeacherCourseInfo, String>, javafx.beans.value.ObservableValue<String>> {
-        public javafx.beans.value.ObservableValue<String> call(TableColumn.CellDataFeatures<TeacherCourseInfo, String> param) {
-            return new javafx.beans.property.SimpleStringProperty(param.getValue().getCourseName());
+
+    private class CourseNameCellFactory implements javafx.util.Callback<TableColumn.CellDataFeatures<TeacherCourseInfo, String>, ObservableValue<String>> {
+        public ObservableValue<String> call(TableColumn.CellDataFeatures<TeacherCourseInfo, String> param) {
+            return new SimpleStringProperty(param.getValue().getCourseName());
         }
     }
 
-    private class GroupNumberCellFactory implements javafx.util.Callback<TableColumn.CellDataFeatures<TeacherCourseInfo, String>, javafx.beans.value.ObservableValue<String>> {
-        public javafx.beans.value.ObservableValue<String> call(TableColumn.CellDataFeatures<TeacherCourseInfo, String> param) {
-            return new javafx.beans.property.SimpleStringProperty(String.valueOf(param.getValue().getGroupNumber()));
+    private class GroupNumberCellFactory implements Callback<TableColumn.CellDataFeatures<TeacherCourseInfo, String>, ObservableValue<String>> {
+        public ObservableValue<String> call(TableColumn.CellDataFeatures<TeacherCourseInfo, String> param) {
+            return new SimpleStringProperty(String.valueOf(param.getValue().getGroupNumber()));
         }
     }
 
-    private class SpecialityCellFactory implements javafx.util.Callback<TableColumn.CellDataFeatures<TeacherCourseInfo, String>, javafx.beans.value.ObservableValue<String>> {
-        public javafx.beans.value.ObservableValue<String> call(TableColumn.CellDataFeatures<TeacherCourseInfo, String> param) {
-            return new javafx.beans.property.SimpleStringProperty(param.getValue().getSpeciality());
+    private class SpecialityCellFactory implements Callback<TableColumn.CellDataFeatures<TeacherCourseInfo, String>, ObservableValue<String>> {
+        public ObservableValue<String> call(TableColumn.CellDataFeatures<TeacherCourseInfo, String> param) {
+            return new SimpleStringProperty(param.getValue().getSpeciality());
         }
     }
 
-    private class DirectionCellFactory implements javafx.util.Callback<TableColumn.CellDataFeatures<TeacherCourseInfo, String>, javafx.beans.value.ObservableValue<String>> {
-        public javafx.beans.value.ObservableValue<String> call(TableColumn.CellDataFeatures<TeacherCourseInfo, String> param) {
-            return new javafx.beans.property.SimpleStringProperty(param.getValue().getDirection());
+    private class DirectionCellFactory implements Callback<TableColumn.CellDataFeatures<TeacherCourseInfo, String>, ObservableValue<String>> {
+        public ObservableValue<String> call(TableColumn.CellDataFeatures<TeacherCourseInfo, String> param) {
+            return new SimpleStringProperty(param.getValue().getDirection());
         }
     }
 
-    private class ShowAddCourseDialogHandler implements javafx.event.EventHandler<javafx.event.ActionEvent> {
-        public void handle(javafx.event.ActionEvent event) { showAddCourseDialog(); }
+    private class ShowAddCourseDialogHandler implements EventHandler<ActionEvent> {
+        public void handle(ActionEvent event) { showAddCourseDialog(); }
     }
 
-    private class AddTeacherCourseHandler implements javafx.event.EventHandler<javafx.event.ActionEvent> {
+    private class AddTeacherCourseHandler implements EventHandler<ActionEvent> {
         private TextField courseNameField;
+        private TextField hoursField;
         private Stage dialog;
 
-        public AddTeacherCourseHandler(TextField field, Stage dialog) {
+        public AddTeacherCourseHandler(TextField field, TextField hoursField, Stage dialog) {
             this.courseNameField = field;
+            this.hoursField = hoursField;
             this.dialog = dialog;
         }
 
-        public void handle(javafx.event.ActionEvent event) {
+        public void handle(ActionEvent event) {
             String courseName = courseNameField.getText().trim();
-            if (courseName.isEmpty()) return;
+            String hoursText = hoursField.getText().trim();
+            if (courseName.isEmpty() || hoursText.isEmpty()) return;
             try {
+                int hours = Integer.parseInt(hoursText);
                 Connection conn = Database.getConnection();
-                PreparedStatement stmt = conn.prepareStatement("INSERT INTO courses (course_name) VALUES (?)");
+
+                // 1. Добавляем курс
+                PreparedStatement stmt = conn.prepareStatement("INSERT INTO courses (course_name) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
                 stmt.setString(1, courseName);
                 stmt.executeUpdate();
+                ResultSet rs = stmt.getGeneratedKeys();
+                int courseId = -1;
+                if (rs.next()) {
+                    courseId = rs.getInt(1);
+                }
+                // 2. Добавляем назначение преподавателя
+                if (courseId != -1) {
+                    PreparedStatement stmt2 = conn.prepareStatement("INSERT INTO assignments (teacher_id, course_id, number_of_academic_hours) VALUES (?, ?, ?)");
+                    stmt2.setInt(1, teacherUser.getTeacherId());
+                    stmt2.setInt(2, courseId);
+                    stmt2.setInt(3, hours);
+                    stmt2.executeUpdate();
+                }
                 loadTeacherCourses();
                 dialog.close();
-            } catch (SQLException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

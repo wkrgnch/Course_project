@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="929c43e9-d87b-4684-8d9e-42ebe1daac23" name="Changes" comment="added other controllers, RegistrationView, update some classes">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/course_project/UserController.java" afterDir="false" />
+    <list default="true" id="929c43e9-d87b-4684-8d9e-42ebe1daac23" name="Changes" comment="added UserController">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/course_project/AdminView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/course_project/AdminView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/course_project/TeacherView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/course_project/TeacherView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,7 +131,15 @@
       <option name="project" value="LOCAL" />
       <updated>1751029129650</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="added UserController">
+      <option name="closed" value="true" />
+      <created>1751035238026</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1751035238026</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -141,6 +148,7 @@
     <MESSAGE value="edited Assignment added Course Group Lesson Teacher User" />
     <MESSAGE value="added controllers viewers" />
     <MESSAGE value="added other controllers, RegistrationView, update some classes" />
-    <option name="LAST_COMMIT_MESSAGE" value="added other controllers, RegistrationView, update some classes" />
+    <MESSAGE value="added UserController" />
+    <option name="LAST_COMMIT_MESSAGE" value="added UserController" />
   </component>
 </project>
