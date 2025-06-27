@@ -25,8 +25,9 @@ public class AdminView extends Application {
         Tab groupsTab = new Tab("Группы", new GroupController());
         Tab lessonsTab = new Tab("Занятия", new LessonController());
         Tab assignmentsTab = new Tab("Назначения", new AssignmentController());
+        Tab usersTab = new Tab("Пользователи", new UserController());
 
-        tabPane.getTabs().addAll(coursesTab, teachersTab, groupsTab, lessonsTab, assignmentsTab);
+        tabPane.getTabs().addAll(coursesTab, teachersTab, groupsTab, lessonsTab, assignmentsTab, usersTab);
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
         BorderPane root = new BorderPane();

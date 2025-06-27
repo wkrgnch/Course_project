@@ -4,35 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="929c43e9-d87b-4684-8d9e-42ebe1daac23" name="Changes" comment="added controllers viewers">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/course_project/AssignmentController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/course_project/CourseController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/course_project/GroupController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/course_project/LessonController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/course_project/RegistrationView.java" afterDir="false" />
+    <list default="true" id="929c43e9-d87b-4684-8d9e-42ebe1daac23" name="Changes" comment="added other controllers, RegistrationView, update some classes">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/course_project/UserController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/course_project/AddHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/course_project/AdminController.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/course_project/AdminView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/course_project/AdminView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/course_project/Assignment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/course_project/Assignment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/course_project/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/course_project/Course.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/course_project/CourseRow.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/course_project/CreateCourseHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/course_project/DeleteHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/course_project/Group.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/course_project/Group.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/course_project/Lesson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/course_project/Lesson.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/course_project/LoginController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/course_project/LoginHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/course_project/LoginView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/course_project/LoginView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/course_project/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/course_project/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/course_project/RegisterHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/course_project/TableSelectHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/course_project/Teacher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/course_project/Teacher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/course_project/TeacherController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/course_project/TeacherController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/course_project/TeacherView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/course_project/TeacherView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/course_project/UpdateHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/course_project/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/course_project/User.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,6 +62,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.AdminView.executor": "Run",
     "Application.HelloApplication.executor": "Run",
     "Application.Main.executor": "Run",
     "Downloaded.Files.Path.Enabled": "false",
@@ -148,7 +124,15 @@
       <option name="project" value="LOCAL" />
       <updated>1750984924527</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="added other controllers, RegistrationView, update some classes">
+      <option name="closed" value="true" />
+      <created>1751029129649</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1751029129650</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -156,6 +140,7 @@
     <MESSAGE value="added Assignment and ActivityType" />
     <MESSAGE value="edited Assignment added Course Group Lesson Teacher User" />
     <MESSAGE value="added controllers viewers" />
-    <option name="LAST_COMMIT_MESSAGE" value="added controllers viewers" />
+    <MESSAGE value="added other controllers, RegistrationView, update some classes" />
+    <option name="LAST_COMMIT_MESSAGE" value="added other controllers, RegistrationView, update some classes" />
   </component>
 </project>
