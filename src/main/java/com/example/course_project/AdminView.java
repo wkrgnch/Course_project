@@ -1,40 +1,41 @@
 package com.example.course_project;
 
-import javafx.geometry.Insets;
-import javafx.scene.control.*;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
-public class AdminView {
-    private BorderPane root;
-    private ComboBox<String> tableSelector;
-    private TableView<?> table;
-    private Button addButton, deleteButton, updateButton;
 
-    public AdminView() {
-        root = new BorderPane();
-        root.setPadding(new Insets(10));
+public class AdminView extends Application {
+    private User adminUser;
 
-        tableSelector = new ComboBox<>();
-        tableSelector.getItems().addAll("teachers","courses","groups","lessons","assignments","users");
-        root.setTop(tableSelector);
-
-        table = new TableView<>();
-        root.setCenter(table);
-
-        addButton = new Button("Add");
-        addButton.setStyle("-fx-background-color: #8BC34A;");
-        deleteButton = new Button("Delete");
-        deleteButton.setStyle("-fx-background-color: #F44336;");
-        updateButton = new Button("Update");
-        HBox hb = new HBox(10, addButton, deleteButton, updateButton);
-        root.setBottom(hb);
+    public AdminView(User user) {
+        this.adminUser = user;
     }
 
-    public BorderPane getRoot() { return root; }
-    public ComboBox<String> getTableSelector() { return tableSelector; }
-    public TableView<?> getTable() { return table; }
-    public Button getAddButton() { return addButton; }
-    public Button getDeleteButton() { return deleteButton; }
-    public Button getUpdateButton() { return updateButton; }
+    @Override
+    public void start(Stage stage) {
+        TabPane tabPane = new TabPane();
+
+        Tab coursesTab = new Tab("Курсы", new CourseController());
+        Tab teachersTab = new Tab("Преподаватели", new TeacherController());
+        Tab groupsTab = new Tab("Группы", new GroupController());
+        Tab lessonsTab = new Tab("Занятия", new LessonController());
+        Tab assignmentsTab = new Tab("Назначения", new AssignmentController());
+
+        tabPane.getTabs().addAll(coursesTab, teachersTab, groupsTab, lessonsTab, assignmentsTab);
+        tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
+
+        BorderPane root = new BorderPane();
+        root.setCenter(tabPane);
+
+        Scene scene = new Scene(root, 1000, 600);
+        stage.setScene(scene);
+        stage.setTitle("Панель администратора");
+        stage.show();
+    }
 }
+

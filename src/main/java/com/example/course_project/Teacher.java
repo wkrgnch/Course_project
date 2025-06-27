@@ -17,46 +17,10 @@ public class Teacher {
         this.phoneNumber = phoneNumber;
     }
 
-    // Геттеры и сеттеры
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPatronymic() {
-        return patronymic;
-    }
-    public void setPatronymic(String patronymic) {
-        this.patronymic = patronymic;
-    }
-
-    public int getExperience() {
-        return experience;
-    }
-    public void setExperience(int experience) {
-        this.experience = experience;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
+    public int getId() { return id; }
+    public String getSurname() { return surname; }
+    public String getName() { return name; }
+    public String getPatronymic() { return patronymic; }
+    public int getExperience() { return experience; }
+    public String getPhoneNumber() { return phoneNumber; }
 }

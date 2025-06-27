@@ -1,58 +1,128 @@
 package com.example.course_project;
 
+import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
-public class LoginView {
-    private GridPane root;
-    private TextField usernameField;
-    private PasswordField passwordField;
-    private Button loginButton;
-    private Button registerButton;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-    public LoginView() {
-        root = new GridPane();
-        root.setPadding(new Insets(20));
-        root.setHgap(10);
-        root.setVgap(10);
+public class LoginView extends Application {
+    public void start(Stage primaryStage) {
+        Label usernameLabel = new Label("Имя пользователя:");
+        TextField usernameField = new TextField();
 
-        // Поле для логина
-        root.add(new Label("Username:"), 0, 0);
-        usernameField = new TextField();
-        root.add(usernameField, 1, 0);
+        Label passwordLabel = new Label("Пароль:");
+        PasswordField passwordField = new PasswordField();
 
-        // Поле для пароля
-        root.add(new Label("Password:"), 0, 1);
-        passwordField = new PasswordField();
-        root.add(passwordField, 1, 1);
+        Button loginButton = new Button("Войти");
+        loginButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white;");
+        loginButton.setOnAction(new LoginHandler(usernameField, passwordField, primaryStage));
 
-        // Кнопка "Login"
-        loginButton = new Button("Login");
-        root.add(loginButton, 0, 2);
+        Button registerButton = new Button("Регистрация");
+        registerButton.setStyle("-fx-background-color: #2196F3; -fx-text-fill: white;");
+        registerButton.setOnAction(new RegisterHandler());
 
-        // Кнопка "Register"
-        registerButton = new Button("Register");
-        root.add(registerButton, 1, 2);
+        Label messageLabel = new Label();
+
+        GridPane grid = new GridPane();
+        grid.setVgap(10);
+        grid.setHgap(10);
+        grid.setPadding(new Insets(20));
+        grid.add(usernameLabel, 0, 0);
+        grid.add(usernameField, 1, 0);
+        grid.add(passwordLabel, 0, 1);
+        grid.add(passwordField, 1, 1);
+        grid.add(loginButton, 0, 2);
+        grid.add(registerButton, 1, 2);
+        grid.add(messageLabel, 0, 3, 2, 1);
+
+        Scene scene = new Scene(grid, 350, 200);
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Вход в систему");
+        primaryStage.show();
     }
 
-    public GridPane getRoot() {
-        return root;
+    // Внутренний класс для авторизации
+    private class LoginHandler implements javafx.event.EventHandler<javafx.event.ActionEvent> {
+        private TextField usernameField;
+        private PasswordField passwordField;
+        private Stage primaryStage;
+
+        public LoginHandler(TextField usernameField, PasswordField passwordField, Stage primaryStage) {
+            this.usernameField = usernameField;
+            this.passwordField = passwordField;
+            this.primaryStage = primaryStage;
+        }
+
+        public void handle(javafx.event.ActionEvent event) {
+            String username = usernameField.getText().trim();
+            String password = passwordField.getText().trim();
+            User user = authenticate(username, password);
+
+            if (user != null) {
+                if ("admin".equals(user.getRole())) {
+                    new AdminView(user).start(new Stage());
+                } else {
+                    new TeacherView(user).start(new Stage());
+                }
+                primaryStage.close();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Неверное имя пользователя или пароль!", ButtonType.OK);
+                alert.show();
+            }
+        }
+
+        private User authenticate(String username, String password) {
+            try {
+                Connection conn = Database.getConnection();
+                String sql = "SELECT * FROM users WHERE username=? AND password=?";
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setString(1, username);
+                stmt.setString(2, md5(password));
+                ResultSet rs = stmt.executeQuery();
+                if (rs.next()) {
+                    return new User(
+                            rs.getInt("id"),
+                            rs.getString("username"),
+                            rs.getString("password"),
+                            rs.getString("role"),
+                            rs.getInt("teacher_id")
+                    );
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        private String md5(String input) {
+            try {
+                MessageDigest md = MessageDigest.getInstance("MD5");
+                byte[] digest = md.digest(input.getBytes());
+                BigInteger no = new BigInteger(1, digest);
+                String hashText = no.toString(16);
+                while (hashText.length() < 32) {
+                    hashText = "0" + hashText;
+                }
+                return hashText;
+            } catch (Exception e) {
+                return null;
+            }
+        }
     }
 
-    public TextField getUsernameField() {
-        return usernameField;
-    }
-
-    public PasswordField getPasswordField() {
-        return passwordField;
-    }
-
-    public Button getLoginButton() {
-        return loginButton;
-    }
-
-    public Button getRegisterButton() {
-        return registerButton;
+    // Внутренний класс для перехода к регистрации
+    private class RegisterHandler implements javafx.event.EventHandler<javafx.event.ActionEvent> {
+        public void handle(javafx.event.ActionEvent event) {
+            new RegistrationView().start(new Stage());
+        }
     }
 }
