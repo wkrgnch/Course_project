@@ -30,6 +30,12 @@ public class LoginView extends Application {
         registerButton.setStyle("-fx-background-color: #2196F3; -fx-text-fill: white;");
         registerButton.setOnAction(new RegisterHandler());
 
+        Button changePassBtn = new Button("Сменить пароль");
+        changePassBtn.setStyle("-fx-background-color: #FF9800; -fx-text-fill: white;");
+        changePassBtn.setOnAction(new ChangePasswordHandler(primaryStage));
+
+
+
         Label messageLabel = new Label();
 
         GridPane grid = new GridPane();
@@ -43,6 +49,7 @@ public class LoginView extends Application {
         grid.add(loginButton, 0, 2);
         grid.add(registerButton, 1, 2);
         grid.add(messageLabel, 0, 3, 2, 1);
+        grid.add(changePassBtn, 0, 4, 2, 1);
 
         Scene scene = new Scene(grid, 350, 200);
         primaryStage.setScene(scene);
@@ -119,10 +126,20 @@ public class LoginView extends Application {
         }
     }
 
-    // Внутренний класс для перехода к регистрации
+    //Для перехода к регистрации
     private class RegisterHandler implements javafx.event.EventHandler<javafx.event.ActionEvent> {
         public void handle(javafx.event.ActionEvent event) {
             new RegistrationView().start(new Stage());
+        }
+    }
+
+    private class ChangePasswordHandler implements javafx.event.EventHandler<javafx.event.ActionEvent> {
+        private Stage ownerStage;
+        public ChangePasswordHandler(Stage ownerStage) {
+            this.ownerStage = ownerStage;
+        }
+        public void handle(javafx.event.ActionEvent event) {
+            ChangePassword.showDialog(ownerStage);
         }
     }
 }

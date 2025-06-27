@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="929c43e9-d87b-4684-8d9e-42ebe1daac23" name="Changes" comment="added UserController">
+    <list default="true" id="929c43e9-d87b-4684-8d9e-42ebe1daac23" name="Changes" comment="update creating course">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/course_project/ChangePassword.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/course_project/TeacherView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/course_project/TeacherView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/course_project/LoginView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/course_project/LoginView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -139,7 +140,15 @@
       <option name="project" value="LOCAL" />
       <updated>1751035238026</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="update creating course">
+      <option name="closed" value="true" />
+      <created>1751036626580</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1751036626580</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -149,6 +158,7 @@
     <MESSAGE value="added controllers viewers" />
     <MESSAGE value="added other controllers, RegistrationView, update some classes" />
     <MESSAGE value="added UserController" />
-    <option name="LAST_COMMIT_MESSAGE" value="added UserController" />
+    <MESSAGE value="update creating course" />
+    <option name="LAST_COMMIT_MESSAGE" value="update creating course" />
   </component>
 </project>
