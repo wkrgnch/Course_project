@@ -1,5 +1,10 @@
 package com.example.course_project;
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -28,7 +33,6 @@ public class UserController extends VBox {
         TableColumn<User, String> roleCol = new TableColumn<>("Роль");
         roleCol.setCellValueFactory(new RoleCellFactory());
 
-        table.getColumns().addAll(idCol, usernameCol, roleCol);
 
         loginField = new TextField(); loginField.setPromptText("Логин");
         passwordField = new TextField(); passwordField.setPromptText("Пароль");
@@ -49,6 +53,8 @@ public class UserController extends VBox {
         changeRoleBtn.setOnAction(new ChangeRoleHandler());
 
         statusLabel = new Label();
+
+        table.getColumns().addAll(idCol, usernameCol, roleCol);
 
         HBox controls = new HBox(5, loginField, passwordField, roleBox, addBtn, deleteBtn, changeRoleBtn);
         controls.setPadding(new Insets(5));
@@ -132,31 +138,33 @@ public class UserController extends VBox {
     }
 
 
-    private class IdCellFactory implements Callback<TableColumn.CellDataFeatures<User, Integer>, javafx.beans.value.ObservableValue<Integer>> {
-        public javafx.beans.value.ObservableValue<Integer> call(TableColumn.CellDataFeatures<User, Integer> param) {
-            return new javafx.beans.property.SimpleIntegerProperty(param.getValue().getId()).asObject();
+    private class IdCellFactory implements Callback<TableColumn.CellDataFeatures<User, Integer>, ObservableValue<Integer>> {
+        public ObservableValue<Integer> call(TableColumn.CellDataFeatures<User, Integer> param) {
+            return new SimpleIntegerProperty(param.getValue().getId()).asObject();
         }
     }
-    private class UsernameCellFactory implements Callback<TableColumn.CellDataFeatures<User, String>, javafx.beans.value.ObservableValue<String>> {
-        public javafx.beans.value.ObservableValue<String> call(TableColumn.CellDataFeatures<User, String> param) {
-            return new javafx.beans.property.SimpleStringProperty(param.getValue().getUsername());
+    private class UsernameCellFactory implements Callback<TableColumn.CellDataFeatures<User, String>, ObservableValue<String>> {
+        public ObservableValue<String> call(TableColumn.CellDataFeatures<User, String> param) {
+            return new SimpleStringProperty(param.getValue().getUsername());
         }
     }
-    private class RoleCellFactory implements Callback<TableColumn.CellDataFeatures<User, String>, javafx.beans.value.ObservableValue<String>> {
-        public javafx.beans.value.ObservableValue<String> call(TableColumn.CellDataFeatures<User, String> param) {
-            return new javafx.beans.property.SimpleStringProperty(param.getValue().getRole());
+    private class RoleCellFactory implements Callback<TableColumn.CellDataFeatures<User, String>, ObservableValue<String>> {
+        public ObservableValue<String> call(TableColumn.CellDataFeatures<User, String> param) {
+            return new SimpleStringProperty(param.getValue().getRole());
         }
     }
 
 
-    private class AddUserHandler implements javafx.event.EventHandler<javafx.event.ActionEvent> {
-        public void handle(javafx.event.ActionEvent event) { addUser(); }
+    private class AddUserHandler implements EventHandler<ActionEvent> {
+        public void handle(ActionEvent event) { addUser(); }
     }
-    private class DeleteUserHandler implements javafx.event.EventHandler<javafx.event.ActionEvent> {
-        public void handle(javafx.event.ActionEvent event) { deleteUser(); }
+
+    private class DeleteUserHandler implements EventHandler<ActionEvent> {
+        public void handle(ActionEvent event) { deleteUser(); }
     }
-    private class ChangeRoleHandler implements javafx.event.EventHandler<javafx.event.ActionEvent> {
-        public void handle(javafx.event.ActionEvent event) { changeRole(); }
+
+    private class ChangeRoleHandler implements EventHandler<ActionEvent> {
+        public void handle(ActionEvent event) { changeRole(); }
     }
 }
 

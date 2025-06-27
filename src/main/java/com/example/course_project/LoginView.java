@@ -1,12 +1,13 @@
 package com.example.course_project;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.sql.Connection;
@@ -35,7 +36,6 @@ public class LoginView extends Application {
         changePassBtn.setOnAction(new ChangePasswordHandler(primaryStage));
 
 
-
         Label messageLabel = new Label();
 
         GridPane grid = new GridPane();
@@ -57,8 +57,8 @@ public class LoginView extends Application {
         primaryStage.show();
     }
 
-    // Внутренний класс для авторизации
-    private class LoginHandler implements javafx.event.EventHandler<javafx.event.ActionEvent> {
+    // для авторизации
+    private class LoginHandler implements EventHandler<ActionEvent> {
         private TextField usernameField;
         private PasswordField passwordField;
         private Stage primaryStage;
@@ -69,7 +69,7 @@ public class LoginView extends Application {
             this.primaryStage = primaryStage;
         }
 
-        public void handle(javafx.event.ActionEvent event) {
+        public void handle(ActionEvent event) {
             String username = usernameField.getText().trim();
             String password = passwordField.getText().trim();
             User user = authenticate(username, password);
@@ -101,8 +101,7 @@ public class LoginView extends Application {
                             rs.getString("username"),
                             rs.getString("password"),
                             rs.getString("role"),
-                            rs.getInt("teacher_id")
-                    );
+                            rs.getInt("teacher_id"));
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -126,19 +125,21 @@ public class LoginView extends Application {
         }
     }
 
-    //Для перехода к регистрации
-    private class RegisterHandler implements javafx.event.EventHandler<javafx.event.ActionEvent> {
-        public void handle(javafx.event.ActionEvent event) {
+    //для перехода к регистрации
+    private class RegisterHandler implements EventHandler<ActionEvent> {
+        public void handle(ActionEvent event) {
             new RegistrationView().start(new Stage());
         }
     }
 
-    private class ChangePasswordHandler implements javafx.event.EventHandler<javafx.event.ActionEvent> {
+    private class ChangePasswordHandler implements EventHandler<ActionEvent> {
         private Stage ownerStage;
+
         public ChangePasswordHandler(Stage ownerStage) {
             this.ownerStage = ownerStage;
         }
-        public void handle(javafx.event.ActionEvent event) {
+
+        public void handle(ActionEvent event) {
             ChangePassword.showDialog(ownerStage);
         }
     }

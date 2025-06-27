@@ -99,7 +99,7 @@ public class LessonController extends VBox {
             stmt.setInt(2, Integer.parseInt(groupIdField.getText()));
             stmt.setInt(3, Integer.parseInt(courseIdField.getText()));
             stmt.setString(4, typeField.getText());
-            stmt.setBigDecimal(5, new java.math.BigDecimal(costField.getText()));
+            stmt.setBigDecimal(5, new BigDecimal(costField.getText()));
             stmt.executeUpdate();
             statusLabel.setText("Занятие добавлено.");
             loadLessons();

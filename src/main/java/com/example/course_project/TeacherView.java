@@ -1,6 +1,5 @@
 package com.example.course_project;
 
-
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -74,8 +73,7 @@ public class TeacherView extends Application {
                         rs.getString("course_name"),
                         rs.getInt("group_number"),
                         rs.getString("speciality"),
-                        rs.getString("direction")
-                ));
+                        rs.getString("direction")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -125,7 +123,7 @@ public class TeacherView extends Application {
     }
 
 
-    private class CourseNameCellFactory implements javafx.util.Callback<TableColumn.CellDataFeatures<TeacherCourseInfo, String>, ObservableValue<String>> {
+    private class CourseNameCellFactory implements Callback<TableColumn.CellDataFeatures<TeacherCourseInfo, String>, ObservableValue<String>> {
         public ObservableValue<String> call(TableColumn.CellDataFeatures<TeacherCourseInfo, String> param) {
             return new SimpleStringProperty(param.getValue().getCourseName());
         }
@@ -172,7 +170,7 @@ public class TeacherView extends Application {
                 int hours = Integer.parseInt(hoursText);
                 Connection conn = Database.getConnection();
 
-                // 1. Добавляем курс
+                // добавляем курс
                 PreparedStatement stmt = conn.prepareStatement("INSERT INTO courses (course_name) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
                 stmt.setString(1, courseName);
                 stmt.executeUpdate();
@@ -181,7 +179,8 @@ public class TeacherView extends Application {
                 if (rs.next()) {
                     courseId = rs.getInt(1);
                 }
-                // 2. Добавляем назначение преподавателя
+
+                // добавляем назначение преподавателя
                 if (courseId != -1) {
                     PreparedStatement stmt2 = conn.prepareStatement("INSERT INTO assignments (teacher_id, course_id, number_of_academic_hours) VALUES (?, ?, ?)");
                     stmt2.setInt(1, teacherUser.getTeacherId());

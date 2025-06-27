@@ -1,6 +1,5 @@
 package com.example.course_project;
 
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -34,7 +33,7 @@ public class TeacherController extends VBox {
         TableColumn<Teacher, String> phoneCol = new TableColumn<>("Телефон");
         phoneCol.setCellValueFactory(new PhoneCellFactory());
 
-        table.getColumns().addAll(idCol, surnameCol, nameCol, patrCol, expCol, phoneCol);
+
 
         surnameField = new TextField(); surnameField.setPromptText("Фамилия");
         nameField = new TextField(); nameField.setPromptText("Имя");
@@ -51,6 +50,8 @@ public class TeacherController extends VBox {
         deleteButton.setOnAction(new DeleteTeacherHandler());
 
         statusLabel = new Label();
+
+        table.getColumns().addAll(idCol, surnameCol, nameCol, patrCol, expCol, phoneCol);
 
         HBox controls = new HBox(5, surnameField, nameField, patronymicField, experienceField, phoneField, addButton, deleteButton);
         controls.setAlignment(Pos.CENTER_LEFT);

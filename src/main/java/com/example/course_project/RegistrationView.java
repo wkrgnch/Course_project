@@ -134,7 +134,8 @@ public class RegistrationView extends Application {
         private ComboBox<String> roleBox;
         private Stage stage;
 
-        public RegisterHandler(TextField usernameField, PasswordField passwordField, ComboBox<String> roleBox, Stage stage) {
+        public RegisterHandler(TextField usernameField, PasswordField passwordField,
+                               ComboBox<String> roleBox, Stage stage) {
             this.usernameField = usernameField;
             this.passwordField = passwordField;
             this.roleBox = roleBox;

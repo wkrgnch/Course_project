@@ -1,6 +1,11 @@
 package com.example.course_project;
 
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -34,10 +39,14 @@ public class GroupController extends VBox {
 
         table.getColumns().addAll(idCol, numberCol, specialityCol, directionCol, countCol);
 
-        groupNumberField = new TextField(); groupNumberField.setPromptText("Номер группы");
-        specialityField = new TextField(); specialityField.setPromptText("Специальность");
-        directionField = new TextField(); directionField.setPromptText("Направление");
-        studentCountField = new TextField(); studentCountField.setPromptText("Кол-во студентов");
+        groupNumberField = new TextField();
+        groupNumberField.setPromptText("Номер группы");
+        specialityField = new TextField();
+        specialityField.setPromptText("Специальность");
+        directionField = new TextField();
+        directionField.setPromptText("Направление");
+        studentCountField = new TextField();
+        studentCountField.setPromptText("Кол-во студентов");
 
         Button addButton = new Button("Добавить");
         addButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white;");
@@ -112,46 +121,45 @@ public class GroupController extends VBox {
         }
     }
 
-    // ===== Внутренние классы для колонок =====
-    private class IdCellFactory implements Callback<TableColumn.CellDataFeatures<Group, Integer>, javafx.beans.value.ObservableValue<Integer>> {
-        public javafx.beans.value.ObservableValue<Integer> call(TableColumn.CellDataFeatures<Group, Integer> param) {
-            return new javafx.beans.property.SimpleIntegerProperty(param.getValue().getId()).asObject();
+
+    private class IdCellFactory implements Callback<TableColumn.CellDataFeatures<Group, Integer>, ObservableValue<Integer>> {
+        public ObservableValue<Integer> call(TableColumn.CellDataFeatures<Group, Integer> param) {
+            return new SimpleIntegerProperty(param.getValue().getId()).asObject();
         }
     }
 
-    private class NumberCellFactory implements Callback<TableColumn.CellDataFeatures<Group, Integer>, javafx.beans.value.ObservableValue<Integer>> {
-        public javafx.beans.value.ObservableValue<Integer> call(TableColumn.CellDataFeatures<Group, Integer> param) {
-            return new javafx.beans.property.SimpleIntegerProperty(param.getValue().getGroupNumber()).asObject();
+    private class NumberCellFactory implements Callback<TableColumn.CellDataFeatures<Group, Integer>, ObservableValue<Integer>> {
+        public ObservableValue<Integer> call(TableColumn.CellDataFeatures<Group, Integer> param) {
+            return new SimpleIntegerProperty(param.getValue().getGroupNumber()).asObject();
         }
     }
 
-    private class SpecialityCellFactory implements Callback<TableColumn.CellDataFeatures<Group, String>, javafx.beans.value.ObservableValue<String>> {
-        public javafx.beans.value.ObservableValue<String> call(TableColumn.CellDataFeatures<Group, String> param) {
-            return new javafx.beans.property.SimpleStringProperty(param.getValue().getSpeciality());
+    private class SpecialityCellFactory implements Callback<TableColumn.CellDataFeatures<Group, String>, ObservableValue<String>> {
+        public ObservableValue<String> call(TableColumn.CellDataFeatures<Group, String> param) {
+            return new SimpleStringProperty(param.getValue().getSpeciality());
         }
     }
 
-    private class DirectionCellFactory implements Callback<TableColumn.CellDataFeatures<Group, String>, javafx.beans.value.ObservableValue<String>> {
-        public javafx.beans.value.ObservableValue<String> call(TableColumn.CellDataFeatures<Group, String> param) {
-            return new javafx.beans.property.SimpleStringProperty(param.getValue().getDirection());
+    private class DirectionCellFactory implements Callback<TableColumn.CellDataFeatures<Group, String>, ObservableValue<String>> {
+        public ObservableValue<String> call(TableColumn.CellDataFeatures<Group, String> param) {
+            return new SimpleStringProperty(param.getValue().getDirection());
         }
     }
 
-    private class CountCellFactory implements Callback<TableColumn.CellDataFeatures<Group, Integer>, javafx.beans.value.ObservableValue<Integer>> {
-        public javafx.beans.value.ObservableValue<Integer> call(TableColumn.CellDataFeatures<Group, Integer> param) {
-            return new javafx.beans.property.SimpleIntegerProperty(param.getValue().getStudentCount()).asObject();
+    private class CountCellFactory implements Callback<TableColumn.CellDataFeatures<Group, Integer>, ObservableValue<Integer>> {
+        public ObservableValue<Integer> call(TableColumn.CellDataFeatures<Group, Integer> param) {
+            return new SimpleIntegerProperty(param.getValue().getStudentCount()).asObject();
         }
     }
 
-    // ===== Внутренние классы-обработчики =====
-    private class AddGroupHandler implements javafx.event.EventHandler<javafx.event.ActionEvent> {
-        public void handle(javafx.event.ActionEvent event) {
+    private class AddGroupHandler implements EventHandler<ActionEvent> {
+        public void handle(ActionEvent event) {
             addGroup();
         }
     }
 
-    private class DeleteGroupHandler implements javafx.event.EventHandler<javafx.event.ActionEvent> {
-        public void handle(javafx.event.ActionEvent event) {
+    private class DeleteGroupHandler implements EventHandler<ActionEvent> {
+        public void handle(ActionEvent event) {
             deleteGroup();
         }
     }

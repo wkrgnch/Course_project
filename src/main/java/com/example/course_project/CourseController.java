@@ -1,6 +1,11 @@
 package com.example.course_project;
 
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -101,27 +106,27 @@ public class CourseController extends VBox {
         }
     }
 
-    // ===== Внутренние классы (без лямбд) =====
-    private class IdCellFactory implements Callback<TableColumn.CellDataFeatures<Course, Integer>, javafx.beans.value.ObservableValue<Integer>> {
-        public javafx.beans.value.ObservableValue<Integer> call(TableColumn.CellDataFeatures<Course, Integer> param) {
-            return new javafx.beans.property.SimpleIntegerProperty(param.getValue().getId()).asObject();
+
+    private class IdCellFactory implements Callback<TableColumn.CellDataFeatures<Course, Integer>, ObservableValue<Integer>> {
+        public ObservableValue<Integer> call(TableColumn.CellDataFeatures<Course, Integer> param) {
+            return new SimpleIntegerProperty(param.getValue().getId()).asObject();
         }
     }
 
-    private class NameCellFactory implements Callback<TableColumn.CellDataFeatures<Course, String>, javafx.beans.value.ObservableValue<String>> {
-        public javafx.beans.value.ObservableValue<String> call(TableColumn.CellDataFeatures<Course, String> param) {
-            return new javafx.beans.property.SimpleStringProperty(param.getValue().getCourseName());
+    private class NameCellFactory implements Callback<TableColumn.CellDataFeatures<Course, String>, ObservableValue<String>> {
+        public ObservableValue<String> call(TableColumn.CellDataFeatures<Course, String> param) {
+            return new SimpleStringProperty(param.getValue().getCourseName());
         }
     }
 
-    private class AddCourseHandler implements javafx.event.EventHandler<javafx.event.ActionEvent> {
-        public void handle(javafx.event.ActionEvent event) {
+    private class AddCourseHandler implements EventHandler<ActionEvent> {
+        public void handle(ActionEvent event) {
             addCourse();
         }
     }
 
-    private class DeleteCourseHandler implements javafx.event.EventHandler<javafx.event.ActionEvent> {
-        public void handle(javafx.event.ActionEvent event) {
+    private class DeleteCourseHandler implements EventHandler<ActionEvent> {
+        public void handle(ActionEvent event) {
             deleteCourse();
         }
     }

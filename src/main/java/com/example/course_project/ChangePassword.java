@@ -1,5 +1,7 @@
 package com.example.course_project;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -29,7 +31,6 @@ public class ChangePassword {
 
         Label statusLabel = new Label();
 
-        // Используем внутренний класс-обработчик
         changeBtn.setOnAction(new ChangePasswordHandler(loginField, oldPassField, newPassField, statusLabel));
 
         root.getChildren().addAll(
@@ -41,21 +42,22 @@ public class ChangePassword {
         dialog.show();
     }
 
-    // Внутренний класс для обработки смены пароля
-    private static class ChangePasswordHandler implements javafx.event.EventHandler<javafx.event.ActionEvent> {
+    // для обработки смены пароля
+    private static class ChangePasswordHandler implements EventHandler<ActionEvent> {
         private TextField loginField;
         private PasswordField oldPassField;
         private PasswordField newPassField;
         private Label statusLabel;
 
-        public ChangePasswordHandler(TextField loginField, PasswordField oldPassField, PasswordField newPassField, Label statusLabel) {
+        public ChangePasswordHandler(TextField loginField, PasswordField oldPassField,
+                                     PasswordField newPassField, Label statusLabel) {
             this.loginField = loginField;
             this.oldPassField = oldPassField;
             this.newPassField = newPassField;
             this.statusLabel = statusLabel;
         }
 
-        public void handle(javafx.event.ActionEvent event) {
+        public void handle(ActionEvent event) {
             String login = loginField.getText().trim();
             String oldPass = oldPassField.getText().trim();
             String newPass = newPassField.getText().trim();
