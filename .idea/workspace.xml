@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="929c43e9-d87b-4684-8d9e-42ebe1daac23" name="Changes" comment="added access for admin table lessons">
+    <list default="true" id="929c43e9-d87b-4684-8d9e-42ebe1daac23" name="Changes" comment="added access for admin table assignment">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/course_project/AssignmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/course_project/AssignmentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/course_project/RegistrationView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/course_project/RegistrationView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,6 +64,7 @@
     "Application.AdminView.executor": "Run",
     "Application.HelloApplication.executor": "Run",
     "Application.Main.executor": "Run",
+    "Application.RegistrationView.executor": "Run",
     "Downloaded.Files.Path.Enabled": "false",
     "Repository.Attach.Annotations": "false",
     "Repository.Attach.JavaDocs": "false",
@@ -163,7 +164,15 @@
       <option name="project" value="LOCAL" />
       <updated>1751042056737</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="added access for admin table assignment">
+      <option name="closed" value="true" />
+      <created>1751044526099</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1751044526099</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -176,6 +185,7 @@
     <MESSAGE value="update creating course" />
     <MESSAGE value="added password change" />
     <MESSAGE value="added access for admin table lessons" />
-    <option name="LAST_COMMIT_MESSAGE" value="added access for admin table lessons" />
+    <MESSAGE value="added access for admin table assignment" />
+    <option name="LAST_COMMIT_MESSAGE" value="added access for admin table assignment" />
   </component>
 </project>

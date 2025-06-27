@@ -1,14 +1,14 @@
 package com.example.course_project;
 
-
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import java.math.BigInteger;
-import java.security.MessageDigest;
 import java.sql.*;
 
 
@@ -47,7 +47,88 @@ public class RegistrationView extends Application {
         stage.show();
     }
 
-    private class RegisterHandler implements javafx.event.EventHandler<javafx.event.ActionEvent> {
+    private void showTeacherDialog(String username, String password) {
+        Stage dialog = new Stage();
+        VBox root = new VBox(10);
+        root.setPadding(new Insets(10));
+
+        TextField surnameField = new TextField();
+        surnameField.setPromptText("Фамилия");
+        TextField nameField = new TextField();
+        nameField.setPromptText("Имя");
+        TextField patronymicField = new TextField();
+        patronymicField.setPromptText("Отчество");
+        TextField experienceField = new TextField();
+        experienceField.setPromptText("Стаж");
+        TextField phoneField = new TextField();
+        phoneField.setPromptText("Телефон");
+
+        Button okBtn = new Button("OK");
+        okBtn.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white;");
+        okBtn.setOnAction(new RegisterTeacherHandler(surnameField, nameField, patronymicField, experienceField, phoneField,
+                username, password, dialog));
+
+        root.getChildren().addAll(new Label("Данные преподавателя:"), surnameField, nameField, patronymicField, experienceField, phoneField, okBtn);
+        dialog.setScene(new Scene(root, 300, 350));
+        dialog.setTitle("Регистрация преподавателя");
+        dialog.show();
+    }
+
+    private class RegisterTeacherHandler implements EventHandler<ActionEvent> {
+        private TextField surnameField, nameField, patronymicField, experienceField, phoneField;
+        private String username, password;
+        private Stage dialog;
+
+        public RegisterTeacherHandler(TextField surname, TextField name, TextField patr, TextField exp, TextField phone,
+                                String username, String password, Stage dialog) {
+            this.surnameField = surname;
+            this.nameField = name;
+            this.patronymicField = patr;
+            this.experienceField = exp;
+            this.phoneField = phone;
+            this.username = username;
+            this.password = password;
+            this.dialog = dialog;
+        }
+
+        public void handle(ActionEvent event) {
+            try {
+                Connection conn = Database.getConnection();
+                // сначала вставим в teachers
+                String sqlTeacher = "INSERT INTO teachers (surname, name, patronymic, experience, phone_number) VALUES (?, ?, ?, ?, ?)";
+                PreparedStatement stmtTeacher = conn.prepareStatement(sqlTeacher, Statement.RETURN_GENERATED_KEYS);
+                stmtTeacher.setString(1, surnameField.getText());
+                stmtTeacher.setString(2, nameField.getText());
+                stmtTeacher.setString(3, patronymicField.getText());
+                stmtTeacher.setInt(4, Integer.parseInt(experienceField.getText()));
+                stmtTeacher.setString(5, phoneField.getText());
+                stmtTeacher.executeUpdate();
+                ResultSet rs = stmtTeacher.getGeneratedKeys();
+                int teacherId = -1;
+                if (rs.next()) {
+                    teacherId = rs.getInt(1);
+                }
+                // затем в users с этим teacher_id
+                if (teacherId != -1) {
+                    String sqlUser = "INSERT INTO users (username, password, role, teacher_id) VALUES (?, MD5(?), ?, ?)";
+                    PreparedStatement stmtUser = conn.prepareStatement(sqlUser);
+                    stmtUser.setString(1, username);
+                    stmtUser.setString(2, password);
+                    stmtUser.setString(3, "teacher");
+                    stmtUser.setInt(4, teacherId);
+                    stmtUser.executeUpdate();
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION, "Регистрация успешна!", ButtonType.OK);
+                    alert.showAndWait();
+                }
+                dialog.close();
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Ошибка при регистрации!", ButtonType.OK);
+                alert.show();
+            }
+        }
+    }
+
+    private class RegisterHandler implements EventHandler<ActionEvent> {
         private TextField usernameField;
         private PasswordField passwordField;
         private ComboBox<String> roleBox;
@@ -60,41 +141,30 @@ public class RegistrationView extends Application {
             this.stage = stage;
         }
 
-        public void handle(javafx.event.ActionEvent event) {
+        public void handle(ActionEvent event) {
             String username = usernameField.getText().trim();
             String password = passwordField.getText().trim();
             String role = roleBox.getValue();
 
-            try {
-                Connection conn = Database.getConnection();
-                String sql = "INSERT INTO users (username, password, role) VALUES (?, ?, ?)";
-                PreparedStatement stmt = conn.prepareStatement(sql);
-                stmt.setString(1, username);
-                stmt.setString(2, md5(password));
-                stmt.setString(3, role);
-                stmt.executeUpdate();
-
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Регистрация успешна!", ButtonType.OK);
-                alert.showAndWait();
-                stage.close();
-            } catch (SQLException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "Ошибка при регистрации!", ButtonType.OK);
-                alert.show();
-            }
-        }
-
-        private String md5(String input) {
-            try {
-                MessageDigest md = MessageDigest.getInstance("MD5");
-                byte[] digest = md.digest(input.getBytes());
-                BigInteger no = new BigInteger(1, digest);
-                String hashText = no.toString(16);
-                while (hashText.length() < 32) {
-                    hashText = "0" + hashText;
+            if ("teacher".equals(role)) {
+                showTeacherDialog(username, password);
+            } else {
+                // регистрация админа (без teacher_id)
+                try {
+                    Connection conn = Database.getConnection();
+                    String sql = "INSERT INTO users (username, password, role) VALUES (?, MD5(?), ?)";
+                    PreparedStatement stmt = conn.prepareStatement(sql);
+                    stmt.setString(1, username);
+                    stmt.setString(2, password);
+                    stmt.setString(3, role);
+                    stmt.executeUpdate();
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION, "Регистрация успешна!", ButtonType.OK);
+                    alert.showAndWait();
+                    stage.close();
+                } catch (SQLException e) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Ошибка при регистрации!", ButtonType.OK);
+                    alert.show();
                 }
-                return hashText;
-            } catch (Exception e) {
-                return null;
             }
         }
     }
